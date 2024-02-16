@@ -19,3 +19,30 @@ carouselButton.addEventListener('click', function () {
         carousel.cycle();
     }
 })
+
+async function fetchWeather() {
+    const apiKey = process.env.OPEN_WEATHER_API_KEY;
+    const city = "Dallas";
+    const state = "Texas"
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&${state}&appid=${apiKey}&units=imperial`
+
+    try {
+        let response = await fetch(url);
+        let data = await response.json();
+        displayWeather(data);
+        console.log(data);
+    } catch (error) {
+        console.error('There was an error!', error);
+    }
+}
+
+fetchWeather();
+
+function displayWeather(data) {
+    const img = document.createElement('img');
+    const iconCode = data.weather[0].icon;
+    img.src = `https://openweathermap.org/img/w/${iconCode}.png`;
+    img.alt = "weather data";
+    document.querySelector('#weather').appendChild(img);
+}
+
