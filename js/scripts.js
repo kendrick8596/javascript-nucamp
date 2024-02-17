@@ -41,8 +41,11 @@ fetchWeather();
 function displayWeather(data) {
     const img = document.createElement('img');
     const iconCode = data.weather[0].icon;
+    const temp = data.main.temp;
+    const weatherDescription = data.weather[0].description
     img.src = `https://openweathermap.org/img/w/${iconCode}.png`;
     img.alt = "weather data";
-    document.querySelector('#weather').appendChild(img);
+    document.querySelector('#weather-icon').appendChild(img);
+    document.querySelector('#weather-temp').textContent = Math.floor(temp) + "\u00B0";
+    document.querySelector('#weather-description').textContent = weatherDescription;
 }
-
